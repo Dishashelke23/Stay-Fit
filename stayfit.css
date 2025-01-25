@@ -18,6 +18,10 @@ header {
     background-color: #231f20;
     padding: 10px;
     box-sizing: inherit;
+    display: flex;
+    justify-content: space-between; /* Ensure spacing between elements */
+    align-items: center; /* Align items in a single row */
+    flex-wrap: wrap; /* Allow wrapping if the space is too small */
 }
 
 header h1 a {
@@ -31,6 +35,7 @@ header h1 a {
     float: left;
     padding-right: 30px;
     padding-left: 30px;
+    white-space: nowrap;
 }
 
 header h2 a {
@@ -43,6 +48,7 @@ header h2 a {
     padding-bottom: 10px;
     text-align: center;
     padding-left: 30px;
+    white-space: nowrap;
 }
 
 /* Dropdown Button Styling */
@@ -53,6 +59,7 @@ header .dropbtn {
     padding: 0px;
     font-size: 20px;
     border: none;
+    white-space: nowrap;
 }
 
 /* Dropdown Content */
@@ -88,6 +95,53 @@ header .dropbtn {
 
 .dropdown:hover .dropbtn {
     background-color: #231f20;
+}
+
+header .dropdown {
+    display: inline-block;
+}
+
+/* Ensure the header text and buttons are aligned horizontally */
+header h1, header h2, .dropbtn {
+    display: inline-block;
+    padding: 10px;
+    margin: 0;
+}
+
+/* Make the entire header flexible and wrap only when needed */
+@media screen and (max-width: 768px) {
+    header {
+        flex-direction: column; /* Stack header items on top of each other */
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* Adjust the header links' font size */
+    header h1 a {
+        font-size: 22px;
+        text-align: center;
+    }
+    header h2 a {
+        font-size: 16px;
+        text-align: center;
+    }
+
+    .dropdown-content {
+        min-width: 100%; /* Make the dropdown take the full width on small screens */
+    }
+}
+
+/* Make header items more mobile-friendly */
+@media screen and (max-width: 480px) {
+    header h1 a {
+        font-size: 20px; /* Slightly smaller on very small screens */
+    }
+    header h2 a {
+        font-size: 14px;
+    }
+    .dropbtn {
+        font-size: 16px;
+    }
 }
 
 /* Big Image for Navigation */
