@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Condition Diagnosis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin: 10px 0;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Health Diagnosis Tool</h2>
+        <p>Select your symptoms:</p>
+        <div id="symptom-list">
+            <label><input type="checkbox" value="fever"> Fever</label>
+            <label><input type="checkbox" value="fatigue"> Fatigue</label>
+            <label><input type="checkbox" value="cough"> Cough</label>
+            <label><input type="checkbox" value="shortness_of_breath"> Shortness of Breath</label>
+            <label><input type="checkbox" value="chills"> Chills</label>
+            <label><input type="checkbox" value="muscle_pain"> Muscle Pain</label>
+            <label><input type="checkbox" value="headache"> Headache</label>
+            <label><input type="checkbox" value="nausea"> Nausea</label>
+            <label><input type="checkbox" value="sore_throat"> Sore Throat</label>
+            <label><input type="checkbox" value="runny_nose"> Runny Nose</label>
+            <label><input type="checkbox" value="diarrhea"> Diarrhea</label>
+            <label><input type="checkbox" value="vomiting"> Vomiting</label>
+            <label><input type="checkbox" value="loss_of_taste"> Loss of Taste</label>
+            <label><input type="checkbox" value="loss_of_smell"> Loss of Smell</label>
+            <label><input type="checkbox" value="dizziness"> Dizziness</label>
+            <label><input type="checkbox" value="chest_pain"> Chest Pain</label>
+            <label><input type="checkbox" value="high_blood_pressure"> High Blood Pressure</label>
+            <label><input type="checkbox" value="low_blood_pressure"> Low Blood Pressure</label>
+            <label><input type="checkbox" value="skin_rash"> Skin Rash</label>
+            <label><input type="checkbox" value="joint_pain"> Joint Pain</label>
+        </div>
+        <button onclick="diagnose()">Diagnose</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function diagnose() {
+            let symptoms = document.querySelectorAll('input[type="checkbox"]:checked');
+            let selectedSymptoms = Array.from(symptoms).map(symptom => symptom.value);
+            let result = "";
+
+            let diseases = {
+                "Flu": ["fever", "fatigue", "cough", "muscle_pain"],
+                "COVID-19": ["fever", "cough", "shortness_of_breath", "loss_of_taste", "loss_of_smell"],
+                "Common Cold": ["runny_nose", "sore_throat", "cough", "headache"],
+                "Food Poisoning": ["nausea", "vomiting", "diarrhea"],
+                "Hypertension": ["high_blood_pressure", "headache", "chest_pain"],
+                "Hypotension": ["low_blood_pressure", "dizziness", "fatigue"],
+                "Migraine": ["headache", "nausea", "sensitivity_to_light"],
+                "Pneumonia": ["fever", "cough", "chest_pain", "shortness_of_breath"],
+                "Bronchitis": ["cough", "sore_throat", "fatigue", "chills"],
+                "Strep Throat": ["sore_throat", "fever", "headache"],
+                "Asthma": ["shortness_of_breath", "chest_pain", "cough"],
+                "Arthritis": ["joint_pain", "fatigue", "muscle_pain"],
+                "Skin Allergy": ["skin_rash", "itchiness"],
+                "Gastroenteritis": ["diarrhea", "vomiting", "nausea"],
+                "Anemia": ["fatigue", "dizziness", "headache"],
+                "Sinusitis": ["headache", "runny_nose", "facial_pain"],
+                "Dengue Fever": ["fever", "joint_pain", "muscle_pain", "skin_rash"],
+                "Tuberculosis": ["fever", "cough", "fatigue", "night_sweats"],
+                "Lyme Disease": ["skin_rash", "joint_pain", "fever"],
+                "Depression": ["fatigue", "loss_of_interest", "sleep_disturbances"]
+            };
+
+            let potentialDiseases = [];
+            for (let disease in diseases) {
+                if (diseases[disease].some(symptom => selectedSymptoms.includes(symptom))) {
+                    potentialDiseases.push(disease);
+                }
+            }
+
+            result = potentialDiseases.length > 0 ? `Possible conditions: ${potentialDiseases.join(", ")}` : "Consult a medical professional for an accurate diagnosis.";
+            document.getElementById("result").innerText = result;
+        }
+    </script>
+</body>
+</html>
