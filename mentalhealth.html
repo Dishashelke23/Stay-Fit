@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        .quiz-container {
+            width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 2px 2px 12px rgba(0,0,0,0.1);
+            height: 600px;
+            align-items: center;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h2>Mental Health Quiz</h2>
+        <div id="question-container"></div>
+        <button id="next-btn">Next</button>
+        <p id="result" class="hidden"></p>
+    </div>
+    <script>
+        const questions = [
+            {
+                text: "Over the last two weeks, how often have you felt down, depressed, or hopeless?",
+                options: ["Not at all", "Several days", "More than half the days", "Nearly every day"]
+            },
+            {
+                text: "Have you had little interest or pleasure in doing things?",
+                options: ["Not at all", "Several days", "More than half the days", "Nearly every day"]
+            },
+            {
+                text: "How often have you felt nervous, anxious, or on edge?",
+                options: ["Not at all", "Several days", "More than half the days", "Nearly every day"]
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        const questionContainer = document.getElementById("question-container");
+        const nextButton = document.getElementById("next-btn");
+        const resultText = document.getElementById("result");
+        let answers = [];
+
+        function showQuestion() {
+            questionContainer.innerHTML = "";
+            const question = questions[currentQuestionIndex];
+            const questionElement = document.createElement("div");
+            questionElement.classList.add("question");
+            questionElement.innerHTML = `<h3>${question.text}</h3>`;
+            question.options.forEach(option => {
+                const label = document.createElement("label");
+                label.innerHTML = `<input type="checkbox" value="${option}"> ${option}`;
+                questionElement.appendChild(label);
+                questionElement.appendChild(document.createElement("br"));
+            });
+            questionContainer.appendChild(questionElement);
+        }
+
+        nextButton.addEventListener("click", () => {
+            const selectedOptions = Array.from(questionContainer.querySelectorAll("input:checked"))
+                .map(input => input.value);
+            answers.push({ question: questions[currentQuestionIndex].text, response: selectedOptions });
+            currentQuestionIndex++;
+            
+            if (currentQuestionIndex < questions.length) {
+                showQuestion();
+            } else {
+                questionContainer.innerHTML = "";
+                nextButton.style.display = "none";
+                resultText.classList.remove("hidden");
+                resultText.textContent = "Thank you for completing the quiz. Please consult a professional for a proper diagnosis.";
+            }
+        });
+
+        showQuestion();
+    </script>
+</body>
+</html>
